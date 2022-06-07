@@ -1,16 +1,33 @@
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { db } from './firebase.config';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import BodyWrapper from './components/ui/BodyWrapper';
+import Header from './components/ui/Header';
+import Body from './components/ui/Body';
 
 function App() {
-	const classes = {
-		bg: 'bg-gray-700 h-[100vh] flex flex-col',
-		title: 'text-4xl text-red-500 m-auto',
-	};
+    const [projects, setProjects] = useState([]);
+    const projectsCollectionRef = collection(db, 'projects');
 
-	return (
-		<div className={classes.bg}>
-			<p className={classes.title}>Coming soon! Project Timer App!</p>
-		</div>
-	);
+    // useEffect(() => {
+    //     const getProjects = async () => {
+    //         const data = await getDocs(projectsCollectionRef);
+    //         setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    //     };
+
+    //     // getProjects();
+    // });
+
+    return (
+        <>
+            {/* <BodyWrapper> */}
+            <Header />
+            <Body>
+                <div>TEST</div>
+            </Body>
+            {/* </BodyWrapper> */}
+        </>
+    );
 }
 
 export default App;
