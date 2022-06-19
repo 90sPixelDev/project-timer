@@ -4,6 +4,9 @@ import { collection, getDocs, addDoc } from 'firebase/firestore';
 import BodyWrapper from './components/ui/BodyWrapper';
 import Header from './components/ui/Header';
 import Body from './components/ui/Body';
+import Circle from './components/timer/Circle';
+import TimeText from './components/timer/TimeText';
+import Timer from './components/timer/Timer';
 
 function App() {
     const [projects, setProjects] = useState([]);
@@ -23,7 +26,7 @@ function App() {
             {/* <BodyWrapper> */}
             <Header />
             <Body>
-                <div>TEST</div>
+                <Timer></Timer>
             </Body>
             {/* </BodyWrapper> */}
         </>
