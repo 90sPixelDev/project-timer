@@ -1,16 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Body = () => {
+const Body = (props) => {
     const classes = {
-        container: 'bg-blue-700 h-full w-full',
-        body: 'bg-blue-100 rounded-2xl w-[92.5%] h-full'
+        container: 'bg-blue-400 h-[95vh] w-full flex',
+        body: 'bg-blue-100 rounded-2xl w-[92.5%] h-[90%] mx-auto my-[3%] flex flex-col justify-center items-center'
     };
 
     return (
         <section className={classes.container}>
-            <div className={classes.body} />
+            <div className={classes.body}>{props.children}</div>
         </section>
     );
+};
+
+Body.propTypes = {
+    children: PropTypes.node
 };
 
 export default Body;
