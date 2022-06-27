@@ -13,17 +13,19 @@ const Timer = (props) => {
         container: 'grid w-[70%] sm:max-w-[60vh]'
     };
 
+    console.log(props.project[1].title);
+
     const timerContext = useContext(StartStopTimerContext);
 
-    const [projectName, setProjectName] = useState(props.project.title);
-    const [projectDays, setProjectDays] = useState(props.project.days);
-    const [projectHours, setProjectHours] = useState(props.project.hours);
-    const [projectMinutes, setProjectMinutes] = useState(props.project.minutes);
+    const [projectName, setProjectName] = useState(props.project[1].title);
+    const [projectDays, setProjectDays] = useState(props.project[1].days);
+    const [projectHours, setProjectHours] = useState(props.project[1].hours);
+    const [projectMinutes, setProjectMinutes] = useState(props.project[1].minutes);
     const [secondCount, setSecondCount] = useState(0);
     const [hrCount, setHRCount] = useState(
-        props.project.hours * 4.25 + props.project.minutes * 0.0559210526315789
+        props.project[1].hours * 4.25 + props.project[1].minutes * 0.0559210526315789
     );
-    const [minCount, setMinCount] = useState(props.project.minutes * 1.266666666666667);
+    const [minCount, setMinCount] = useState(props.project[1].minutes * 1.266666666666667);
 
     const switchHandler = () => {
         if (timerContext.working) {
@@ -33,7 +35,24 @@ const Timer = (props) => {
         console.log(timerContext);
     };
 
+    const updateProjectVisual = useCallback(() => {
+        setProjectName(props.project[1].title);
+        setProjectDays(props.project[1].days);
+        setProjectHours(props.project[1].hours);
+        setProjectMinutes(props.project[1].minutes);
+
+        setSecondCount(0);
+
+        setHRCount(props.project[1].hours * 4.25 + props.project[1].minutes * 0.0559210526315789);
+        setMinCount(props.project[1].minutes * 1.266666666666667);
+    }, [props.project]);
+
     useEffect(() => {
+        updateProjectVisual();
+    }, [updateProjectVisual]);
+
+    useEffect(() => {
+        console.log('Timer effect!');
         if (secondCount >= 113) {
             console.log('went over 113!');
             setProjectMinutes((state) => state + 1);
@@ -52,7 +71,7 @@ const Timer = (props) => {
             setHRCount((hr) => (hr = 0));
         }
         if (timerContext.working) {
-            console.log('Timer Working!');
+            console.log('Timer Currently Running!');
             const addSeconds = setInterval(() => {
                 setSecondCount((sec) => sec + 1.883333333333333);
                 setHRCount((hr) => hr + 0.0011805555555556);
@@ -64,6 +83,7 @@ const Timer = (props) => {
 
     return (
         <div className={classes.container}>
+            <p>FUCKING TEST NAME</p>
             <ProjectName projectName={projectName} />
             <TimeText days={projectDays} hours={projectHours} minutes={projectMinutes} />
             <Circle sec={secondCount} min={minCount} hr={hrCount} />
@@ -73,7 +93,7 @@ const Timer = (props) => {
 };
 
 Timer.propTypes = {
-    project: PropTypes.object
+    project: PropTypes.array
 };
 
 export default Timer;

@@ -13,7 +13,7 @@ import { ref, onValue } from 'firebase/database';
 
 function App() {
     const [projects, setProjects] = useState([]);
-    const [selectedProject, setSelectedProject] = useState({});
+    const [selectedProject, setSelectedProject] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const dummyProject = [
@@ -25,40 +25,40 @@ function App() {
         }
     ];
 
+    const initialSelectedProject = () => {
+        console.log('Running Selected Project func!');
+        if (projects !== null && projects !== undefined && projects.length > 0) {
+            setSelectedProject(projects[0]);
+            setIsLoading(false);
+        }
+    };
+
     const getProjects = useCallback(async () => {
         try {
             const projectsRef = ref(db);
             onValue(projectsRef, (snapshot) => {
                 const data = snapshot.val();
-                // console.log(data.projects);
-                // const proj = data.projects.forEach((project) => {
-                //     const prj = { id: project.key, title: project.title };
-                //     return prj;
-                // });
-                // console.log(proj);
                 const projectArr = Object.entries(data.projects);
-                // const testObj = Object.fromEntries(projectArr);
-                // console.log(projectArr);
                 setProjects(projectArr);
-                // setSelectedProject(projectArr[0]);
-                if (projects !== null || projects.length > 0 || projects === undefined) {
-                    setIsLoading(false);
-                }
             });
         } catch (err) {
             console.log(err);
         }
-        console.log('Getting Projects');
     }, []);
 
     useEffect(() => {
+        console.log('Running!');
         getProjects();
     }, [getProjects]);
+
+    useEffect(() => {
+        initialSelectedProject();
+    }, [projects]);
 
     const selectProjectHandler = (projID) => {
         const project = projects.find((proj) => projID === proj[0]);
         console.log(project);
-        setSelectedProject((prevProj) => (prevProj = project));
+        setSelectedProject(project);
     };
 
     return (
@@ -66,8 +66,7 @@ function App() {
             <Header />
             <Body>
                 {isLoading && <p>Loading Projects...</p>}
-                {!isLoading && <Timer project={dummyProject[0]} />}
-                {/* <Timer project={selectedProject} /> */}
+                {!isLoading && <Timer project={selectedProject} />}
                 {!isLoading && (
                     <ProjectList projects={projects} onSelectedProject={selectProjectHandler} />
                 )}
