@@ -16,14 +16,31 @@ function App() {
     const [selectedProject, setSelectedProject] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
+    const dummyProject = [
+        {
+            title: 'Test Portrait',
+            days: 1,
+            hours: 3,
+            minutes: 12
+        }
+    ];
+
     const getProjects = useCallback(async () => {
         try {
             const projectsRef = ref(db);
             onValue(projectsRef, (snapshot) => {
                 const data = snapshot.val();
-                const projectArr = Object.values(data.projects);
+                // console.log(data.projects);
+                // const proj = data.projects.forEach((project) => {
+                //     const prj = { id: project.key, title: project.title };
+                //     return prj;
+                // });
+                // console.log(proj);
+                const projectArr = Object.entries(data.projects);
+                // const testObj = Object.fromEntries(projectArr);
+                // console.log(projectArr);
                 setProjects(projectArr);
-                setSelectedProject(projectArr[0]);
+                // setSelectedProject(projectArr[0]);
                 if (projects !== null || projects.length > 0 || projects === undefined) {
                     setIsLoading(false);
                 }
@@ -38,8 +55,9 @@ function App() {
         getProjects();
     }, [getProjects]);
 
-    const selectProjectHandler = (projName) => {
-        const project = projects.find((proj) => projName === proj.title);
+    const selectProjectHandler = (projID) => {
+        const project = projects.find((proj) => projID === proj[0]);
+        console.log(project);
         setSelectedProject((prevProj) => (prevProj = project));
     };
 
@@ -48,7 +66,7 @@ function App() {
             <Header />
             <Body>
                 {isLoading && <p>Loading Projects...</p>}
-                {!isLoading && <Timer project={selectedProject} />}
+                {!isLoading && <Timer project={dummyProject[0]} />}
                 {/* <Timer project={selectedProject} /> */}
                 {!isLoading && (
                     <ProjectList projects={projects} onSelectedProject={selectProjectHandler} />

@@ -18,9 +18,10 @@ const ProjectList = (props) => {
 
     const projectList = props.projects.map((proj) => (
         <Project
-            key={proj.title}
-            title={proj.title}
-            time={time(proj)}
+            key={proj[0]}
+            id={proj[0]}
+            title={proj[1].title}
+            time={time(proj[1])}
             onClick={props.onSelectedProject}
         />
     ));

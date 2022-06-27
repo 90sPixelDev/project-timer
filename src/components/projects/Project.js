@@ -13,7 +13,7 @@ const Project = (props) => {
         <button
             className={classes.button}
             onClick={() => {
-                props.onClick(props.title);
+                props.onClick(props.id);
             }}>
             <h1 className={classes.title}>{props.title}</h1>
             <p>{`Days: ${props.time.days} Hours: ${props.time.hours} Minutes: ${props.time.minutes}`}</p>
@@ -23,6 +23,7 @@ const Project = (props) => {
 
 Project.propTypes = {
     title: PropTypes.string,
+    id: PropTypes.string,
     time: PropTypes.object,
     onClick: PropTypes.func
     // title: PropTypes.string,
