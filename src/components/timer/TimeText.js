@@ -15,8 +15,6 @@ const TimeText = (props) => {
     const min = props.minutes;
     const days = props.days;
 
-    console.log(min);
-
     return (
         <div className={classes.parent}>
             {/* <span className={classes.time}>{`${days} : ${hours} : ${min}`}</span> */}

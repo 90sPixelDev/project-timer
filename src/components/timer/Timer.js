@@ -1,12 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import TimeText from './TimeText';
 import Circle from './Circle';
 import StartStopBtn from './StartStopBtn';
 import ProjectName from './ProjectName';
 import StartStopTimerContext from '../../context/StartStopTimerContext';
-
-const defaultProjectInfo = { days: 0, hours: 0, minutes: 0, title: 'Placeholder Project Name' };
 
 const Timer = (props) => {
     const classes = {
@@ -47,6 +45,7 @@ const Timer = (props) => {
             setHRCount((hr) => (hr = 0));
         }
         if (timerContext.working) {
+            console.log('Timer Working!');
             const addSeconds = setInterval(() => {
                 setSecondCount((sec) => sec + 1.883333333333333);
                 setHRCount((hr) => hr + 0.0011805555555556);
@@ -54,7 +53,7 @@ const Timer = (props) => {
             }, 1000);
             return () => clearInterval(addSeconds);
         }
-    });
+    }, []);
 
     return (
         <div className={classes.container}>

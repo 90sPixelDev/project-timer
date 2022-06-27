@@ -10,17 +10,21 @@ const Project = (props) => {
     };
 
     return (
-        <button className={classes.button}>
+        <button
+            className={classes.button}
+            onClick={() => {
+                props.onClick(props.title);
+            }}>
             <h1 className={classes.title}>{props.title}</h1>
             <p>{`Days: ${props.time.days} Hours: ${props.time.hours} Minutes: ${props.time.minutes}`}</p>
-            {/* <span>Started: MM-DD-YYYY Last Worked: MM-DD-YYYY</span> */}
         </button>
     );
 };
 
 Project.propTypes = {
     title: PropTypes.string,
-    time: PropTypes.object
+    time: PropTypes.object,
+    onClick: PropTypes.func
     // title: PropTypes.string,
 };
 

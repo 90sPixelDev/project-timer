@@ -4,7 +4,7 @@ import Project from './Project';
 
 const ProjectList = (props) => {
     const classes = {
-        container: 'flex flex-col gap-4'
+        container: 'flex gap-4' //flex-col
     };
 
     const time = (currentProj) => {
@@ -17,14 +17,20 @@ const ProjectList = (props) => {
     };
 
     const projectList = props.projects.map((proj) => (
-        <Project key={proj.title} title={proj.title} time={time(proj)} />
+        <Project
+            key={proj.title}
+            title={proj.title}
+            time={time(proj)}
+            onClick={props.onSelectedProject}
+        />
     ));
 
     return <div className={classes.container}>{projectList}</div>;
 };
 
 ProjectList.propTypes = {
-    projects: PropTypes.array
+    projects: PropTypes.array,
+    onSelectedProject: PropTypes.func
 };
 
 export default ProjectList;
