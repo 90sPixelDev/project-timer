@@ -37,7 +37,6 @@ const Timer = (props) => {
 
         const updateData = {};
         updateData['/projects/' + props.project[0]] = updatedTime;
-        // props.reloaded();
         return update(ref(db), updateData);
     };
 
@@ -88,7 +87,7 @@ const Timer = (props) => {
                 setSecondCount((sec) => sec + 1.883333333333333);
                 setHRCount((hr) => hr + 0.0011805555555556);
                 setMinCount((min) => min + 0.0211111111111111);
-            }, 50);
+            }, 1000);
             return () => clearInterval(addSeconds);
         }
     }, [timerContext, projectDays, projectHours, projectMinutes, secondCount]);

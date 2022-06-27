@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import { db } from './firebase.config';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
-// import BodyWrapper from './components/ui/BodyWrapper';
 import Header from './components/ui/Header';
 import Body from './components/ui/Body';
 import Timer from './components/timer/Timer';
@@ -58,7 +55,7 @@ function App() {
 
     return (
         <StartStopTimerProvider>
-            <Header />
+            {/* <Header /> */}
             <Body>
                 {isLoading && <p>Loading Projects...</p>}
                 {!isLoading && (
