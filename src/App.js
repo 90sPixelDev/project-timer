@@ -16,15 +16,6 @@ function App() {
     const [selectedProject, setSelectedProject] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const dummyProject = [
-        {
-            title: 'Test Portrait',
-            days: 1,
-            hours: 3,
-            minutes: 12
-        }
-    ];
-
     const initialSelectedProject = () => {
         console.log('Running Selected Project func!');
         if (projects !== null && projects !== undefined && projects.length > 0) {
@@ -61,12 +52,18 @@ function App() {
         setSelectedProject(project);
     };
 
+    const reloadUpdatedProjectHandler = () => {
+        setIsLoading(true);
+    };
+
     return (
         <StartStopTimerProvider>
             <Header />
             <Body>
                 {isLoading && <p>Loading Projects...</p>}
-                {!isLoading && <Timer project={selectedProject} />}
+                {!isLoading && (
+                    <Timer project={selectedProject} reloaded={reloadUpdatedProjectHandler} />
+                )}
                 {!isLoading && (
                     <ProjectList projects={projects} onSelectedProject={selectProjectHandler} />
                 )}

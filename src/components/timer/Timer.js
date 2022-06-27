@@ -6,14 +6,12 @@ import StartStopBtn from './StartStopBtn';
 import ProjectName from './ProjectName';
 import StartStopTimerContext from '../../context/StartStopTimerContext';
 import { db } from '../../firebase_config';
-import { ref, push, child, update } from 'firebase/database';
+import { ref, update } from 'firebase/database';
 
 const Timer = (props) => {
     const classes = {
         container: 'grid w-[70%] sm:max-w-[60vh]'
     };
-
-    console.log(props.project[1].title);
 
     const timerContext = useContext(StartStopTimerContext);
 
@@ -27,9 +25,23 @@ const Timer = (props) => {
     );
     const [minCount, setMinCount] = useState(props.project[1].minutes * 1.266666666666667);
 
+    const saveProjectTime = () => {
+        const updatedTime = {
+            title: projectName,
+            days: projectDays,
+            hours: projectHours,
+            minutes: projectMinutes
+        };
+
+        const updateData = {};
+        updateData['/projects/' + props.project[0]] = updatedTime;
+        props.reloaded();
+        return update(ref(db), updateData);
+    };
+
     const switchHandler = () => {
         if (timerContext.working) {
-            // something
+            saveProjectTime();
         }
         timerContext.switch();
         console.log(timerContext);
@@ -52,7 +64,6 @@ const Timer = (props) => {
     }, [updateProjectVisual]);
 
     useEffect(() => {
-        console.log('Timer effect!');
         if (secondCount >= 113) {
             console.log('went over 113!');
             setProjectMinutes((state) => state + 1);
@@ -71,7 +82,6 @@ const Timer = (props) => {
             setHRCount((hr) => (hr = 0));
         }
         if (timerContext.working) {
-            console.log('Timer Currently Running!');
             const addSeconds = setInterval(() => {
                 setSecondCount((sec) => sec + 1.883333333333333);
                 setHRCount((hr) => hr + 0.0011805555555556);
@@ -93,7 +103,8 @@ const Timer = (props) => {
 };
 
 Timer.propTypes = {
-    project: PropTypes.array
+    project: PropTypes.array,
+    reloaded: PropTypes.func
 };
 
 export default Timer;
