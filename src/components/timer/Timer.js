@@ -5,6 +5,8 @@ import Circle from './Circle';
 import StartStopBtn from './StartStopBtn';
 import ProjectName from './ProjectName';
 import StartStopTimerContext from '../../context/StartStopTimerContext';
+import { db } from '../../firebase_config';
+import { ref, push, child, update } from 'firebase/database';
 
 const Timer = (props) => {
     const classes = {
@@ -24,11 +26,16 @@ const Timer = (props) => {
     const [minCount, setMinCount] = useState(props.project.minutes * 1.266666666666667);
 
     const switchHandler = () => {
+        if (timerContext.working) {
+            // something
+        }
         timerContext.switch();
+        console.log(timerContext);
     };
 
     useEffect(() => {
-        if (secondCount > 113) {
+        if (secondCount >= 113) {
+            console.log('went over 113!');
             setProjectMinutes((state) => state + 1);
             console.log(projectMinutes);
             setSecondCount((sec) => (sec = 0));
@@ -50,10 +57,10 @@ const Timer = (props) => {
                 setSecondCount((sec) => sec + 1.883333333333333);
                 setHRCount((hr) => hr + 0.0011805555555556);
                 setMinCount((min) => min + 0.0211111111111111);
-            }, 1000);
+            }, 50);
             return () => clearInterval(addSeconds);
         }
-    }, []);
+    }, [timerContext, projectDays, projectHours, projectMinutes, secondCount]);
 
     return (
         <div className={classes.container}>
