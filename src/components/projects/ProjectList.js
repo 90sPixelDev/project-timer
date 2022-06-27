@@ -4,7 +4,7 @@ import Project from './Project';
 
 const ProjectList = (props) => {
     const classes = {
-        container: 'flex gap-4' //flex-col
+        container: 'flex bg-blue-300 h-[20vh] w-full items-center justify-evenly mt-8' //flex-col
     };
 
     const time = (currentProj) => {

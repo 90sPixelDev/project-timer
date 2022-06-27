@@ -5,12 +5,14 @@ import Circle from './Circle';
 import StartStopBtn from './StartStopBtn';
 import ProjectName from './ProjectName';
 import StartStopTimerContext from '../../context/StartStopTimerContext';
+import DeleteProjectBtn from './DeleteProjectBtn';
 import { db } from '../../firebase_config';
 import { ref, update } from 'firebase/database';
 
 const Timer = (props) => {
     const classes = {
-        container: 'grid w-[70%] sm:max-w-[60vh]'
+        container: 'grid w-[70%] sm:max-w-[60vh]',
+        buttonsParent: 'flex gap-2 justify-evenly'
     };
 
     const timerContext = useContext(StartStopTimerContext);
@@ -35,7 +37,7 @@ const Timer = (props) => {
 
         const updateData = {};
         updateData['/projects/' + props.project[0]] = updatedTime;
-        props.reloaded();
+        // props.reloaded();
         return update(ref(db), updateData);
     };
 
@@ -93,11 +95,13 @@ const Timer = (props) => {
 
     return (
         <div className={classes.container}>
-            <p>FUCKING TEST NAME</p>
             <ProjectName projectName={projectName} />
             <TimeText days={projectDays} hours={projectHours} minutes={projectMinutes} />
             <Circle sec={secondCount} min={minCount} hr={hrCount} />
-            <StartStopBtn onClick={switchHandler} />
+            <div className={classes.buttonsParent}>
+                <StartStopBtn onClick={switchHandler} />
+                <DeleteProjectBtn projectID={props.project[0]} />
+            </div>
         </div>
     );
 };

@@ -5,9 +5,9 @@ import { ref, push, child, update } from 'firebase/database';
 
 const NewProject = (props) => {
     const classes = {
-        form: 'bg-blue-200 w-full h-full flex justify-center gap-4',
+        form: ' max-h-[8vh] bg-blue-300 w-full h-full flex justify-center gap-4 my-8',
         textInput: 'p-1 my-auto',
-        btn: 'bg-blue-500 text-white px-4 py-2 rounded-lg border-blue-800 border-[1px] my-auto'
+        btn: 'w-[100px] sm:w-[15vw] sm:max-w[120px] h-[50px] sm:h-[7vw] sm:max-h-[70px] bg-blue-500 text-white text-sm md:text-base px-4 py-2 rounded-lg border-blue-800 border-[1px] my-auto'
     };
 
     const titleInputRef = React.createRef();
