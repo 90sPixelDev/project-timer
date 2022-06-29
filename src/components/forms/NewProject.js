@@ -20,11 +20,13 @@ const NewProject = (props) => {
                 title: titleInputRef.current.value,
                 days: 0,
                 hours: 0,
-                minutes: 0
+                minutes: 0,
+                seconds: 0
             };
             const newProjectID = push(child(ref(db), 'projects')).key;
             const updateData = {};
             updateData['/projects/' + newProjectID] = newProject;
+            console.log(updateData);
             return update(ref(db), updateData);
         } catch (err) {
             console.log(err);

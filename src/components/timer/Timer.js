@@ -17,22 +17,29 @@ const Timer = (props) => {
 
     const timerContext = useContext(StartStopTimerContext);
 
+    //Actual Project times
     const [projectName, setProjectName] = useState(props.project[1].title);
     const [projectDays, setProjectDays] = useState(props.project[1].days);
     const [projectHours, setProjectHours] = useState(props.project[1].hours);
     const [projectMinutes, setProjectMinutes] = useState(props.project[1].minutes);
-    const [secondCount, setSecondCount] = useState(0);
+    const [projectSeconds, setProjectSeconds] = useState(props.project[1].seconds);
+
+    // Visual clock nums
+    const [secondCount, setSecondCount] = useState(props.project[1].seconds * 1.883333333333333);
     const [hrCount, setHRCount] = useState(
         props.project[1].hours * 4.25 + props.project[1].minutes * 0.0559210526315789
     );
-    const [minCount, setMinCount] = useState(props.project[1].minutes * 1.266666666666667);
+    const [minCount, setMinCount] = useState(
+        props.project[1].minutes * 1.266666666666667 + props.project[1].seconds * 0.0211111111111111
+    );
 
     const saveProjectTime = () => {
         const updatedTime = {
             title: projectName,
             days: projectDays,
             hours: projectHours,
-            minutes: projectMinutes
+            minutes: projectMinutes,
+            seconds: projectSeconds
         };
 
         const updateData = {};
@@ -53,11 +60,15 @@ const Timer = (props) => {
         setProjectDays(props.project[1].days);
         setProjectHours(props.project[1].hours);
         setProjectMinutes(props.project[1].minutes);
+        setProjectSeconds(props.project[1].seconds);
 
-        setSecondCount(0);
+        setSecondCount(props.project[1].seconds * 1.883333333333333);
 
         setHRCount(props.project[1].hours * 4.25 + props.project[1].minutes * 0.0559210526315789);
-        setMinCount(props.project[1].minutes * 1.266666666666667);
+        setMinCount(
+            props.project[1].minutes * 1.266666666666667 +
+                props.project[1].seconds * 0.0211111111111111
+        );
     }, [props.project]);
 
     useEffect(() => {
@@ -65,11 +76,13 @@ const Timer = (props) => {
     }, [updateProjectVisual]);
 
     useEffect(() => {
+        console.log(minCount);
         if (secondCount >= 113) {
             console.log('went over 113!');
             setProjectMinutes((state) => state + 1);
             console.log(projectMinutes);
-            setSecondCount((sec) => (sec = 0));
+            setSecondCount(0);
+            setProjectSeconds(0);
             if (projectMinutes >= 59) {
                 setProjectMinutes((min) => (min = 0));
                 setProjectHours((hour) => hour + 1);
@@ -85,8 +98,9 @@ const Timer = (props) => {
         if (timerContext.working) {
             const addSeconds = setInterval(() => {
                 setSecondCount((sec) => sec + 1.883333333333333);
-                setHRCount((hr) => hr + 0.0011805555555556);
+                setProjectSeconds((sec) => sec + 1);
                 setMinCount((min) => min + 0.0211111111111111);
+                setHRCount((hr) => hr + 0.0011805555555556);
             }, 1000);
             return () => clearInterval(addSeconds);
         }
