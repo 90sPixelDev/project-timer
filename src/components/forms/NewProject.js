@@ -41,7 +41,7 @@ const NewProject = (props) => {
                 placeholder="Tite"
                 ref={titleInputRef}></input>
             <button className={classes.btn} onClick={addProject}>
-                Add New Project
+                Add Project
             </button>
         </form>
     );

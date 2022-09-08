@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Project = (props) => {
     const classes = {
-        button: 'max-h-[10vh] h-[90%] w-[25vw] max-w-[200px] bg-blue-200 p-1 rounded-lg shadow-md sm:hover:bg-blue-200/50 transition border-2 border-blue-300/30',
+        button: 'max-h-[15vh] w-[50vw] max-w-[600px] bg-blue-200 p-1 rounded-lg shadow-md sm:hover:bg-blue-100/100 transition border-2 border-blue-300/30',
         title: 'sm:text-2xl text-md text-blue-800',
         time: 'text-sm sm:text-xl'
     };

@@ -11,7 +11,7 @@ import { ref, update } from 'firebase/database';
 
 const Timer = (props) => {
     const classes = {
-        container: 'grid w-[70%] sm:max-w-[60vh]',
+        container: 'grid w-full sm:max-w-[60vh]',
         buttonsParent: 'flex gap-2 justify-evenly'
     };
 

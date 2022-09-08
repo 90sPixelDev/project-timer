@@ -4,7 +4,8 @@ import Project from './Project';
 
 const ProjectList = (props) => {
     const classes = {
-        container: 'flex bg-blue-300 h-[20vh] w-full items-center justify-evenly mt-8' //flex-col
+        container:
+            'flex flex-col bg-blue-300 h-[20vh] w-full items-center sm:gap-4 mt-8 py-4 overflow-auto' //flex-col
     };
 
     const time = (currentProj) => {

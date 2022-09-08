@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/ui/Header';
+import Footer from './components/ui/Footer';
 import Body from './components/ui/Body';
 import Timer from './components/timer/Timer';
 import StartStopTimerProvider from './context/StartStopTimerProvider';
@@ -66,6 +67,7 @@ function App() {
                 )}
                 <NewProject />
             </Body>
+            <Footer />
         </StartStopTimerProvider>
     );
 }

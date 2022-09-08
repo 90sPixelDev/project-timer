@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const Circle = (props) => {
     const classes = {
-        circle: 'w-[50vw] h-[50vw] flex justify-center items-center fill-current',
+        circle: 'w-[35vh] h-[35vh] max-w-fit m-auto',
         body: 'drop-shadow',
         text: ''
     };
 
     return (
-        <svg viewBox="0 0 100 100">
+        <svg viewBox="0 0 100 100" className={classes.circle}>
             <circle // BG CLOCK
                 className={classes.body}
                 cx="50"
